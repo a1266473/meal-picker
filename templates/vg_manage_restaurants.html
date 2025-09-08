@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>刪除餐廳（{{ group.code }}）</h2>
+<p class="muted">本群組餐廳數限制：1 ~ 10</p>
+
+<div class="list" style="margin-top:12px;">
+  {% for r in restaurants %}
+  <div class="row">
+    <div class="name">{{ r.name }}</div>
+    <div></div>
+    <div style="text-align:right;">
+      <form action="{{ url_for('vg_delete_restaurant', code=group.code, vote_restaurant_id=r.id) }}" method="post" style="display:inline;">
+        <button type="submit" {% if too_few %} disabled {% endif %}>刪除</button>
+      </form>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+
+<p style="margin-top:12px;"><a href="{{ url_for('vote', code=group.code) }}">← 返回</a></p>
+{% endblock %}

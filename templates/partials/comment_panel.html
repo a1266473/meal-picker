@@ -1,0 +1,45 @@
+<div class="comment-panel card footer compact">
+  <h3>💬 群組留言板</h3>
+
+  <div id="commentsList" class="comments" aria-live="polite">
+    {% if comments_stream_url %}
+      {# 初次載入由 JS 取回 #}
+    {% endif %}
+  </div>
+
+ <form action="{{ comment_post_url }}" method="post" class="form composer">
+  <div class="inline-row">
+    <label for="nickname">我的暱稱（此群組）</label>
+    <input id="nickname" type="text" name="nickname" value="{{ saved_nick or '' }}" maxlength="10"
+           placeholder="">
+  </div>
+
+  <label for="message">留言內容</label>
+  <input id="message" type="text" name="message" maxlength="30" required placeholder="說點什麼...">
+  <button type="submit">送出留言</button>
+ </form>
+
+
+
+  {% if comments_stream_url %}
+  <script>
+    async function loadComments(scrollToBottom=true) {
+      try {
+        const res = await fetch("{{ comments_stream_url }}", { cache: "no-store" });
+        const html = await res.text();
+        const box = document.getElementById("commentsList");
+        if (box) {
+          const atBottom = Math.abs(box.scrollHeight - box.clientHeight - box.scrollTop) < 4;
+          box.innerHTML = html;
+          // 若是第一次載入或原本就已經在底部，載入後捲到最底
+          if (scrollToBottom || atBottom) {
+            box.scrollTop = box.scrollHeight;
+          }
+        }
+      } catch (e) {}
+    }
+    loadComments(true);
+    setInterval(() => loadComments(false), 5000);
+  </script>
+  {% endif %}
+</div>

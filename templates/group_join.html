@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>輸入群組邀請代碼（{{ '訂餐揪團' if scope == 'order' else '聚餐投票' }}）</h2>
+<form action="{{ url_for('group_join', scope=scope, next_page=next_page) }}" method="post" class="form">
+  <label>代碼</label>
+  <input type="text" name="code" placeholder="例如：ABCD12" required>
+  <button type="submit">加入</button>
+</form>
+<p style="margin-top:12px;"><a href="{{ url_for(next_page) }}">← 返回</a></p>
+{% endblock %}

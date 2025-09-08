@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="hero">
+  <h2>選擇你要做的事</h2>
+  <div class="cta-wrap">
+    <!-- 訂餐揪團：維持主色（藍） -->
+    <a class="cta" href="{{ url_for('order') }}">🍱 訂餐揪團</a>
+    <!-- 聚餐投票：加上 orange 類別，套用橘色 -->
+    <a class="cta orange" href="{{ url_for('vote') }}">🗳️ 聚餐投票</a>
+  </div>
+</section>
+{% endblock %}

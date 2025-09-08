@@ -1,0 +1,13 @@
+<ul class="comment-list">
+  {% for c in comments %}
+    <li class="comment-item oneline">
+      <div class="left">
+        <strong class="nick">{{ c.nickname }}</strong>
+        <span class="msg">{{ c.message }}</span>
+      </div>
+      <div class="time">{{ c.created_at | tw_time }}</div>
+    </li>
+  {% else %}
+    <li class="comment-empty muted">還沒有留言，搶第一個發言吧！</li>
+  {% endfor %}
+</ul>

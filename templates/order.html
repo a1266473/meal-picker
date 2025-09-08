@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>訂餐揪團</h2>
+
+{% if not group %}
+  <div class="cta-wrap" style="margin:12px 0;">
+    <a class="cta" href="{{ url_for('group_new', scope='order', next_page='order') }}">➕ 新增群組</a>
+    <a class="cta secondary" href="{{ url_for('group_join', scope='order', next_page='order') }}">🔑 輸入群組邀請代碼</a>
+
+  </div>
+  <p class="muted">請先建立或輸入群組代碼，才能看到餐廳清單。</p>
+{% else %}
+  <p class="muted" style="margin:8px 0;">群組代碼：<strong>{{ group.code }}</strong>{% if group.name %}（{{ group.name }}）{% endif %}</p>
+
+  <div class="two-col">
+    <div class="main">
+      <p style="margin:8px 0;">
+        <a href="{{ url_for('og_add_restaurant', code=group.code) }}">➕ 新增餐廳</a>
+        ·
+        <a href="{{ url_for('og_manage_restaurants', code=group.code) }}">🗑️ 刪除餐廳</a>
+      </p>
+
+      <div class="grid grid-4 restaurants-grid" style="margin-top:12px;">
+        {% for r in restaurants %}
+        <div class="card">
+          <h3>{{ r.name }}</h3>
+          <p>☎️ {{ r.phone or '—' }}</p>
+          <p>🕒 {{ r.hours or '—' }}</p>
+          {% if r.menu_url %}
+            <p><a href="{{ r.menu_url }}" target="_blank" rel="noopener">📋 菜單</a></p>
+          {% endif %}
+
+          {% if r.id in fav_ids %}
+            <form action="{{ url_for('toggle_favorite_order', code=group.code, order_restaurant_id=r.id) }}" method="post">
+              <button type="submit" class="secondary">★ 移除常訂</button>
+            </form>
+          {% else %}
+            <form action="{{ url_for('toggle_favorite_order', code=group.code, order_restaurant_id=r.id) }}" method="post">
+              <button type="submit">☆ 加入常訂</button>
+            </form>
+          {% endif %}
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+
+    <aside class="sidebar">
+      {% include "partials/comment_panel.html" %}
+    </aside>
+  </div>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,443 @@
+:root {
+  --bg: #f7fafc;
+  --fg: #1a202c;
+  --muted: #4a5568;
+  --primary: #2563eb;
+  --orange: #f97316;
+  --card: #ffffff;
+  --border: #e2e8f0;
+  --success: #16a34a;
+  --warning: #d97706;
+  --error: #dc2626;
+}
+
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Noto Sans, "PingFang TC", "Microsoft JhengHei", Arial, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
+  color: var(--fg);
+  background: var(--bg);
+}
+
+/* 寬一點的頁面，讓右側留言板更靠右 */
+.container {
+  max-width: 1380px;
+  margin: 0 auto;
+  padding: 16px;
+}
+
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+header h1 { margin: 0; font-size: 26px; }
+header nav a {
+  margin-right: 12px;
+  text-decoration: none;
+  color: var(--primary);
+  font-weight: 600;
+}
+
+.footer {
+  display: flex;
+  justify-content: center;
+  padding: 24px 16px 40px;
+  color: var(--muted);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 16px;
+  margin-top: 12px;
+}
+
+.card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+}
+
+.card h3 { margin: 0; }
+.card button {
+  background: var(--primary);
+  border: none;
+  border-radius: 8px;
+  padding: 10px 12px;
+  color: white;
+  cursor: pointer;
+  font-weight: 700;
+}
+
+.card .hint {
+  margin: 0;
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.form {
+  display: grid;
+  gap: 10px;
+  max-width: 400px;
+}
+.form button {
+  background: var(--primary);
+  border: none;
+  border-radius: 8px;
+  padding: 10px 12px;
+  color: white;
+  cursor: pointer;
+  font-weight: 700;
+}
+
+.form .secondary {
+  background: transparent;
+  color: var(--fg);
+  border: 1px solid var(--border);
+}
+
+.flash {
+  list-style: none;
+  padding: 0;
+  margin: 12px 0;
+}
+.flash li {
+  padding: 10px 12px;
+  border-radius: 8px;
+  margin-bottom: 8px;
+}
+.flash-success { background: #dcfce7; }
+.flash-warning { background: #fef9c3; }
+.flash-error { background: #fee2e2; }
+.flash-info { background: #e0f2fe; }
+
+.list {
+  display: grid;
+  gap: 10px;
+}
+.row {
+  display: grid;
+  grid-template-columns: 180px 1fr 60px;
+  align-items: center;
+  gap: 10px;
+}
+.name { font-weight: 600; }
+.bar {
+  background: #e5e7eb;
+  border-radius: 8px;
+  height: 16px;
+  position: relative;
+  overflow: hidden;
+}
+.fill {
+  background: var(--primary);
+  height: 100%;
+  border-radius: 8px 0 0 8px;
+}
+.count { text-align: right; font-variant-numeric: tabular-nums; }
+
+/* === home hero & cta === */
+.hero { text-align: center; padding: 40px 0; }
+.hero h2 { margin: 0 0 20px; font-size: 30px; }
+
+.cta-wrap {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+/* 放大按鈕 */
+.cta {
+  display: inline-block;
+  padding: 16px 22px;          /* 比原來更大 */
+  min-width: 220px;            /* 看起來更像大按鈕 */
+  border-radius: 14px;
+  background: var(--primary);  /* 預設藍色 */
+  color: white;
+  font-weight: 800;
+  font-size: 20px;             /* 放大字 */
+  text-decoration: none;
+  text-align: center;
+  border: 1px solid transparent;
+}
+
+/* 橘色版本：套在「聚餐投票」 */
+.cta.secondary { background: transparent; color: var(--fg); border: 1px solid var(--border); }
+.cta.orange    { background: var(--orange); border-color: transparent; }
+
+
+
+
+/* 寬一點的頁面，讓右側留言板更靠右 */
+
+/* 主要內容 + 右側留言板 */
+.two-col {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 360px; /* 左主欄 + 右邊欄更靠右 */
+  gap: 20px;
+}
+.sidebar { align-self: start; }
+
+/* 餐廳 4 欄（自適應縮到 3/2/1 欄） */
+.grid-4 { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; }
+@media (max-width: 1200px) { .grid-4 { grid-template-columns: repeat(3, 1fr); } }
+@media (max-width: 860px)  { .grid-4 { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 560px)  { .grid-4 { grid-template-columns: 1fr; } }
+
+
+/* comment panel */
+.comment-panel h3 { margin: 0 0 8px; }
+.comments { max-height: 70vh; overflow: auto; border-top: 1px solid var(--border); padding-top: 8px; }
+.comment-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+.comment-item { background: #fff; border: 1px solid var(--border); border-radius: 10px; padding: 8px 10px; }
+.comment-item .meta { display: flex; justify-content: space-between; font-size: 12px; color: var(--muted); margin-bottom: 4px; }
+.comment-item .text { white-space: pre-wrap; word-break: break-word; }
+.comment-empty { text-align: center; padding: 12px; }
+
+/* compact list */
+.comment-panel.compact .comment-item { padding: 6px 8px; }
+.comment-panel.compact .comment-item .meta { font-size: 11px; }
+.comment-panel.compact .comment-item .text { font-size: 14px; }
+
+/* ↑ 讓留言板更高：接近整個視窗高度 */
+.comment-panel.footer {
+  height: 88vh;              /* 原本是 70vh，改成更高 */
+  display: flex;
+  flex-direction: column;
+}
+
+/* 清單區塊自動撐滿剩餘高度 */
+.comment-panel.footer .comments {
+  flex: 1 1 auto;
+  overflow: auto;
+  max-height: none;          /* 蓋掉舊的 max-height 限制 */
+  border-top: 1px solid var(--border);
+  margin-top: 8px;
+}
+
+/* 輸入區固定在面板底部 */
+.comment-panel.footer .composer {
+  position: sticky;
+  bottom: 0;
+  background: #fff;
+  padding-top: 8px;
+  border-top: 1px solid var(--border);
+}
+
+
+
+
+
+
+/* 一行顯示（搭配你已啟用的 .compact 樣式） */
+.comment-panel.compact .comment-item.oneline {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 6px 8px;               /* 緊湊 */
+}
+
+.comment-panel.compact .comment-item.oneline .left {
+  min-width: 0;                   /* 允許縮小以便省略文字 */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;        /* 內容過長時以 ... 省略 */
+}
+
+.comment-panel.compact .comment-item.oneline .nick {
+  margin-right: 6px;
+}
+
+.comment-panel.compact .comment-item.oneline .time {
+  flex: 0 0 auto;
+  font-size: 11px;
+  color: var(--muted);
+  margin-left: 8px;
+}
+
+
+
+
+
+/* 一行留言：暱稱右側留出約 4 個空白鍵寬度，訊息保持單行省略 */
+.comment-panel.compact .comment-item.oneline .left {
+  display: flex;
+  align-items: baseline;
+  min-width: 0;
+  white-space: nowrap;
+  overflow: hidden;
+}
+.comment-panel.compact .comment-item.oneline .nick {
+  margin-right: 4ch;   /* ≈ 4 個數字/空白的字寬 */
+  flex: 0 0 auto;
+}
+.comment-panel.compact .comment-item.oneline .msg {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* 留言時間移到最右、再小一點字體 */
+.comment-panel.compact .comment-item.oneline {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+.comment-panel.compact .comment-item.oneline .left { flex: 1 1 auto; }
+.comment-panel.compact .comment-item.oneline .time {
+  flex: 0 0 auto;
+  margin-left: 12px;
+  font-size: 10px;      /* 再小一點 */
+  color: var(--muted);
+  text-align: right;
+}
+
+
+
+/* composer 內：暱稱標籤與輸入框同一行（桌機）；手機自動換行 */
+.comment-panel.footer .composer { display: grid; gap: 8px; }
+.comment-panel.footer .composer .inline-row {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: center;
+  gap: 8px;
+}
+.comment-panel.footer .composer .inline-row label { white-space: nowrap; margin: 0; }
+.comment-panel.footer .composer .inline-row input { min-width: 0; }
+@media (max-width: 560px) {
+  .comment-panel.footer .composer .inline-row {
+    grid-template-columns: 1fr;   /* 小螢幕改直排 */
+  }
+}
+
+
+
+
+
+/* === 強制一行留言的時間更小 & 靠最右（compact 版本） === */
+.comment-panel.compact .comment-item.oneline {
+  display: flex; align-items: center; justify-content: space-between; gap: 8px;
+}
+.comment-panel.compact .comment-item.oneline .left { 
+  display: flex; align-items: baseline; min-width: 0; white-space: nowrap; overflow: hidden;
+}
+.comment-panel.compact .comment-item.oneline .nick { 
+  margin-right: 2ch;  /* ≈ 4 個空白鍵寬度 */
+  flex: 0 0 auto;
+}
+.comment-panel.compact .comment-item.oneline .msg { 
+  min-width: 0; overflow: hidden; text-overflow: ellipsis;
+}
+.comment-panel.compact .comment-item.oneline .time {
+  flex: 0 0 auto; margin-left: 12px;
+  font-size: 11px;              /* ← 這裡把字體縮小 */
+  line-height: 1; color: var(--muted);
+  text-align: right;
+}
+
+
+/* === 右側留言板寬度（全站可調） === */
+:root { --sidebar-w: 470px; }      /* 你要更寬就調整這個數字，例如 440px */
+
+/* 主要內容 + 右側留言板：改用變數控制寬度 */
+.two-col {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) var(--sidebar-w);
+  gap: 20px;
+}
+
+/* 螢幕縮窄時自動縮回較小的側欄，避免擠壓主欄 */
+@media (max-width: 1280px) {
+  :root { --sidebar-w: 380px; }
+}
+/* 你原本 <= 860px 會改單欄的規則可保留 */
+
+
+
+
+
+
+/* 調整右欄寬度變數（你可自行微調暱稱欄寬）*/
+:root { --nick-w: 12ch; }  /* 暱稱最多 10 + 2ch 視覺間距 */
+
+/* 每則留言外層仍為 flex：左側(暱稱+內容) + 右側(時間) */
+.comment-panel.compact .comment-item.oneline {
+  display: flex;
+  align-items: flex-start;           /* 多行時時間對齊第一行 */
+  justify-content: space-between;
+  gap: 8px;
+}
+
+/* 左側區改為雙欄格線：固定暱稱欄 + 自適應內容欄 */
+.comment-panel.compact .comment-item.oneline .left {
+  display: grid;
+  grid-template-columns: var(--nick-w) 1fr;  /* 固定暱稱欄寬，內容不受暱稱長短影響 */
+  column-gap: 0;
+  min-width: 0;
+}
+
+/* 暱稱固定欄、內容可換行 */
+.comment-panel.compact .comment-item.oneline .nick {
+  grid-column: 1 / 2;
+  white-space: nowrap;
+  overflow: hidden; text-overflow: ellipsis; /* (暱稱本身太長會截斷) */
+}
+
+.comment-panel.compact .comment-item.oneline .msg {
+  grid-column: 2 / 3;
+  min-width: 0;
+  white-space: normal;            /* ← 允許換行 */
+  word-break: break-word;         /* ← 長字也能換行 */
+  overflow: visible;              /* ← 不做 ... 省略 */
+}
+
+/* 日期永遠在最右邊、字小 */
+.comment-panel.compact .comment-item.oneline .time {
+  flex: 0 0 auto;
+  white-space: nowrap;
+  margin-left: 12px;
+  font-size: 11px;                /* 你現在使用的大小 */
+  line-height: 1;
+  color: var(--muted);
+  text-align: right;
+}
+
+/* 防水平捲軸 */
+.comment-panel .comments { overflow-x: hidden; }
+
+
+
+
+/*（可選）在你的 static/style.css 最後加一點小樣式讓卡片標題與票數在同一列： */
+.restaurant-card .card-head { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; }
+.restaurant-card .title { margin: 0; }
+.restaurant-card .votes { font-size: 12px; color: var(--muted); }
+.tag { display: inline-block; background: #f1f5f9; border: 1px solid var(--border); border-radius: 6px; padding: 2px 6px; font-size: 12px; }
+
+
+
+
+
+/* 表單輸入框統一尺寸（含 datetime-local / select） */
+.form input[type="text"],
+.form input[type="url"],
+.form input[type="datetime-local"],
+.form select {
+  width: 100%;
+  box-sizing: border-box;
+  font: inherit;
+  padding: 10px 12px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  height: 40px;               /* 與文字框一致 */
+}

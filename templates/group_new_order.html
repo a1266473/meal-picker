@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>新增訂餐揪團群組</h2>
+<form action="{{ url_for('group_new', scope='order', next_page=next_page) }}" method="post" class="form">
+  <label for="name">群組名稱（可留空）</label>
+  <input id="name" type="text" name="name" placeholder="例如：週五便當團" />
+
+  <button type="submit">建立群組</button>
+</form>
+
+<p style="margin-top:12px;">
+  <a href="{{ url_for('order') }}">← 返回訂餐揪團</a>
+</p>
+{% endblock %}

@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>新增聚餐投票群組</h2>
+<form action="{{ url_for('group_new', scope='vote', next_page=next_page) }}" method="post" class="form">
+  <label>群組名稱（可留空）</label>
+  <input type="text" name="name" placeholder="例如：週五部門聚餐">
+
+  <label for="event_at">聚餐日期時間（台北時間）</label>
+  <input id="event_at" type="datetime-local" name="event_at"
+         required step="3600"
+         pattern="\d{4}-\d{2}-\d{2}T\d{2}:00"
+         title="請選擇整點（分需為 00）">
+
+  <label for="vote_deadline">投票截止時間（台北時間）</label>
+  <input id="vote_deadline" type="datetime-local" name="vote_deadline"
+         required step="3600"
+         pattern="\d{4}-\d{2}-\d{2}T\d{2}:00"
+         title="請選擇整點（分需為 00）">
+
+  <label for="votes_per_person">每人可用票數</label>
+  <select id="votes_per_person" name="votes_per_person">
+    <option value="1" selected>1 票</option>
+    <option value="2">2 票</option>
+    <option value="3">3 票</option>
+  </select>
+
+  <button type="submit">建立群組</button>
+</form>
+<p style="margin-top:12px;"><a href="{{ url_for('vote') }}">← 返回</a></p>
+
+<script>
+// 將 datetime-local 的分鐘強制對齊 00（整點）
+(function () {
+  function snapHour(el) {
+    if (!el || !el.value) return;
+    // 格式通常是 YYYY-MM-DDTHH:MM（不含秒）
+    const v = el.value;
+    if (v.length >= 16) {
+      const [d, t] = v.split('T');
+      let [h, m] = t.split(':');
+      if (m !== '00') {
+        el.value = `${d}T${h.padStart(2,'0')}:00`;
+      }
+    }
+  }
+  const ids = ["event_at", "vote_deadline"];
+  ids.forEach(id => {
+    const el = document.getElementById(id);
+    if (!el) return;
+    el.addEventListener("change", () => snapHour(el));
+    el.addEventListener("blur",   () => snapHour(el));
+  });
+  const form = document.querySelector("form.form");
+  if (form) {
+    form.addEventListener("submit", (e) => {
+      ids.forEach(id => snapHour(document.getElementById(id)));
+    });
+  }
+})();
+</script>
+{% endblock %}

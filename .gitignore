@@ -1,0 +1,30 @@
+# Python/Flask
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Virtual env
+.venv/
+venv/
+
+# Local databases / instance data
+app.db
+*.sqlite3
+instance/
+
+# Logs / caches / tests
+*.log
+*.tmp
+.pytest_cache/
+.coverage
+
+# OS / IDE
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Builds / dist
+build/
+dist/
